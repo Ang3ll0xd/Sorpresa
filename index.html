@@ -7,7 +7,7 @@
 <style>
   body {
     margin: 0;
-    background: linear-gradient(to bottom right, #ff9ac7, #ffc3a0);
+    background: linear-gradient(135deg, #ff9ac7, #ffc3a0);
     font-family: "Poppins", sans-serif;
     display: flex;
     flex-direction: column;
@@ -20,7 +20,8 @@
   h1 {
     color: white;
     text-shadow: 2px 2px 5px #ff69b4;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    text-align: center;
   }
 
   .card {
@@ -46,38 +47,35 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    backface-visibility: hidden;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    backface-visibility: hidden;
   }
 
   .card-front {
     background: pink url('https://cdn-icons-png.flaticon.com/512/888/888859.png') no-repeat center/80px;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
+    color: #ff69b4;
+    font-weight: bold;
+    font-size: 16px;
+    padding-bottom: 15px;
   }
 
   .card-back {
-    background: #fff;
+    background: white;
     transform: rotateY(180deg);
     padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #444;
     font-size: 15px;
-    line-height: 1.4;
+    line-height: 1.5;
     text-align: center;
     overflow-y: auto;
-  }
-
-  .flower {
-    position: absolute;
-    font-size: 20px;
-    opacity: 0;
-    transition: opacity 0.5s;
-  }
-
-  .flower.show {
-    opacity: 1;
   }
 
   button {
@@ -98,19 +96,30 @@
     transform: scale(1.05);
   }
 
+  .flower {
+    position: absolute;
+    font-size: 20px;
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+
+  .flower.show {
+    opacity: 1;
+  }
 </style>
 </head>
 <body>
 
-<h1>💐 Pulsa la carta 💐</h1>
+<h1>💐 Toca la carta para abrirla 💐</h1>
 
 <div class="card" id="loveCard">
   <div class="card-inner">
-    <div class="card-front"></div>
+    <div class="card-front">Toca para abrir 💌</div>
     <div class="card-back">
       🌸 <strong>Para ti...</strong> 🌸<br><br>
-      Eres una persona increíble, y aunque estemos lejos, quiero que sepas que siempre pienso en ti.  
-      Gracias por iluminar mis días con tu cariño 💖  
+      Eres una persona increíble.  
+      Gracias por iluminar mis días con tu cariño,  
+      aunque la distancia exista, siempre pienso en ti 💖  
       <br><br>— Con mucho amor 💌
     </div>
   </div>

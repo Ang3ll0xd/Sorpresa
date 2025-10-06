@@ -1,228 +1,158 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🌸 Una sorpresa para ti 🌸</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background: linear-gradient(135deg, #ffb6c1, #ffe4e1);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      overflow: hidden;
-      font-family: "Poppins", sans-serif;
-      position: relative;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sorpresa 💌</title>
+<style>
+  body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: url('https://i.ibb.co/dG9y1xj/pink-bg.jpg') no-repeat center center/cover;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-    /* Botón inicial */
-    button {
-      background: #ff69b4;
-      color: white;
-      font-size: 1.2rem;
-      border: none;
-      padding: 15px 25px;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 0 10px rgba(255,105,180,0.6);
-      z-index: 10;
-    }
+  .start-btn {
+    background-color: #ff8ac9;
+    color: white;
+    padding: 18px 40px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(255, 100, 180, 0.6);
+    transition: 0.3s;
+  }
 
-    button:hover {
-      background: #ff85c2;
-      transform: scale(1.1);
-    }
+  .start-btn:hover {
+    background-color: #ff6fb1;
+    transform: scale(1.1);
+  }
 
-    .container {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      gap: 30px;
-      z-index: 10;
-    }
+  .container {
+    display: none;
+    position: relative;
+    width: 300px;
+    height: 200px;
+    perspective: 1000px;
+  }
 
-    /* Carta */
-    .card {
-      width: 250px;
-      height: 180px;
-      perspective: 1000px;
-      cursor: pointer;
-      position: relative;
-    }
+  .card {
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+    cursor: pointer;
+  }
 
-    .card-inner {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      transition: transform 1s;
-      transform-style: preserve-3d;
-    }
+  .card.open {
+    transform: rotateY(180deg);
+  }
 
-    .card.flipped .card-inner {
-      transform: rotateY(180deg);
-    }
+  .front, .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 100, 180, 0.5);
+  }
 
-    .card-front, .card-back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.2);
-    }
+  .front {
+    background: url('https://i.ibb.co/8B2yS0v/love-card.png') center/contain no-repeat;
+    background-color: #ffe6f2;
+  }
 
-    .card-front {
-      background: pink;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 1.3rem;
-      color: white;
-      background-image: url('https://i.imgur.com/y6yN5Pg.png');
-      background-size: cover;
-    }
+  .back {
+    background-color: #fff0fa;
+    transform: rotateY(180deg);
+    padding: 20px;
+    text-align: center;
+    font-size: 1.1rem;
+    color: #ff4fa1;
+    box-shadow: inset 0 0 15px rgba(255, 150, 200, 0.6);
+  }
 
-    .card-back {
-      background: #fff0f5;
-      transform: rotateY(180deg);
-      padding: 20px;
-      text-align: center;
-      font-size: 1.1rem;
-      color: #d63384;
-      line-height: 1.5;
-    }
+  /* Flores animadas */
+  .flower {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: url('https://i.ibb.co/9tS9B5x/flowers.png') no-repeat center/contain;
+    animation: float 6s ease-in-out infinite;
+    cursor: pointer;
+  }
 
-    /* Flores */
-    .flowers {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+  }
 
-    .flower {
-      width: 80px;
-      height: 80px;
-      background-image: url('https://i.imgur.com/bx9QzqJ.png');
-      background-size: cover;
-      cursor: pointer;
-      animation: float 4s ease-in-out infinite;
-    }
+  /* Mensaje flotante */
+  .msg {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.9);
+    color: #ff4fa1;
+    padding: 8px 15px;
+    border-radius: 12px;
+    font-size: 1rem;
+    box-shadow: 0 0 10px rgba(255, 150, 200, 0.6);
+    animation: fade 3s ease-in-out;
+  }
 
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0); }
-    }
-
-    .message {
-      margin-top: 15px;
-      font-size: 1.2rem;
-      color: #c71585;
-      text-align: center;
-      min-height: 30px;
-    }
-
-    /* Corazones flotando */
-    .heart {
-      position: absolute;
-      color: #ff69b4;
-      font-size: 20px;
-      animation: rise 5s linear infinite;
-      opacity: 0.8;
-    }
-
-    @keyframes rise {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 0.8;
-      }
-      100% {
-        transform: translateY(-100vh) scale(1.5);
-        opacity: 0;
-      }
-    }
-  </style>
+  @keyframes fade {
+    0% { opacity: 0; transform: scale(0.8); }
+    30% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(0.8); }
+  }
+</style>
 </head>
 <body>
-  <audio id="music" loop>
-    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_5b5e506f1b.mp3" type="audio/mpeg">
-  </audio>
 
-  <button id="startBtn">✨ Pulsa aquí para comenzar ✨</button>
+<button class="start-btn" onclick="start()">✨ Pulsa aquí ✨</button>
 
-  <div class="container">
-    <div class="card" id="card">
-      <div class="card-inner">
-        <div class="card-front">💌 Toca para abrir 💌</div>
-        <div class="card-back">
-          <p>Hola 💖<br>
-          Este pequeño detalle es para ti.  
-          Eres una persona increíble, y quería que lo supieras 🌸  
-          Aunque estemos lejos, siempre pienso en ti.  
-          Gracias por ser tan especial 💕</p>
-        </div>
-      </div>
+<div class="container" id="main">
+  <div class="card" id="card">
+    <div class="front"></div>
+    <div class="back">
+      <p><b>💌 Mensaje especial 💌</b></p>
+      <p>Quería recordarte lo mucho que te aprecio y lo linda que eres 🌸💖<br>
+      Gracias por ser parte de mi vida 💫</p>
     </div>
-
-    <div class="flowers">
-      <div class="flower" data-msg="Eres más bonita que cualquier flor 🌷"></div>
-      <div class="flower" data-msg="Tu sonrisa alegra mi día 🌼"></div>
-      <div class="flower" data-msg="Cada mensaje tuyo me hace feliz 🌹"></div>
-      <div class="flower" data-msg="Te mereces todo lo lindo 💖"></div>
-      <div class="flower" data-msg="Me encanta hablar contigo 💬"></div>
-      <div class="flower" data-msg="Eres mi mejor coincidencia ✨"></div>
-    </div>
-
-    <div class="message" id="message"></div>
   </div>
 
-  <script>
-    const startBtn = document.getElementById('startBtn');
-    const container = document.querySelector('.container');
-    const card = document.getElementById('card');
-    const flowers = document.querySelectorAll('.flower');
-    const message = document.getElementById('message');
-    const music = document.getElementById('music');
+  <!-- Flores -->
+  <div class="flower" style="top:20px; left:20px;" onclick="showMessage('Eres increíble 🌷')"></div>
+  <div class="flower" style="top:50px; right:40px;" onclick="showMessage('Me encanta tu sonrisa 💞')"></div>
+  <div class="flower" style="bottom:30px; left:60px;" onclick="showMessage('Eres única 💐')"></div>
+  <div class="flower" style="bottom:20px; right:70px;" onclick="showMessage('Gracias por existir 💝')"></div>
+</div>
 
-    startBtn.addEventListener('click', () => {
-      startBtn.style.display = 'none';
-      container.style.display = 'flex';
-      // iniciar los corazones flotando
-      setInterval(createHeart, 500);
-    });
+<script>
+function start() {
+  document.querySelector('.start-btn').style.display = 'none';
+  document.getElementById('main').style.display = 'flex';
+}
 
-    card.addEventListener('click', () => {
-      card.classList.toggle('flipped');
-      // reproducir música al abrir
-      if (card.classList.contains('flipped')) {
-        music.play();
-      }
-    });
+const card = document.getElementById('card');
+card.addEventListener('click', () => {
+  card.classList.toggle('open');
+});
 
-    flowers.forEach(flower => {
-      flower.addEventListener('click', () => {
-        const msg = flower.getAttribute('data-msg');
-        message.textContent = msg;
-      });
-    });
-
-    function createHeart() {
-      const heart = document.createElement('div');
-      heart.classList.add('heart');
-      heart.textContent = '❤';
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.fontSize = Math.random() * 20 + 10 + 'px';
-      document.body.appendChild(heart);
-
-      setTimeout(() => {
-        heart.remove();
-      }, 5000);
-    }
-  </script>
+function showMessage(text) {
+  const msg = document.createElement('div');
+  msg.className = 'msg';
+  msg.innerText = text;
+  msg.style.top = Math.random() * 60 + '%';
+  msg.style.left = Math.random() * 60 + '%';
+  document.body.appendChild(msg);
+  setTimeout(() => msg.remove(), 3000);
+}
+</script>
 </body>
 </html>

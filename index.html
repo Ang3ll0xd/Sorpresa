@@ -15,8 +15,10 @@
       flex-direction: column;
       overflow: hidden;
       font-family: "Poppins", sans-serif;
+      position: relative;
     }
 
+    /* Botón inicial */
     button {
       background: #ff69b4;
       color: white;
@@ -27,6 +29,7 @@
       cursor: pointer;
       transition: all 0.3s;
       box-shadow: 0 0 10px rgba(255,105,180,0.6);
+      z-index: 10;
     }
 
     button:hover {
@@ -39,6 +42,7 @@
       flex-direction: column;
       align-items: center;
       gap: 30px;
+      z-index: 10;
     }
 
     /* Carta */
@@ -122,9 +126,33 @@
       text-align: center;
       min-height: 30px;
     }
+
+    /* Corazones flotando */
+    .heart {
+      position: absolute;
+      color: #ff69b4;
+      font-size: 20px;
+      animation: rise 5s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes rise {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-100vh) scale(1.5);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
+  <audio id="music" loop>
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_5b5e506f1b.mp3" type="audio/mpeg">
+  </audio>
+
   <button id="startBtn">✨ Pulsa aquí para comenzar ✨</button>
 
   <div class="container">
@@ -132,7 +160,7 @@
       <div class="card-inner">
         <div class="card-front">💌 Toca para abrir 💌</div>
         <div class="card-back">
-          <p>Hola 💖<br>  
+          <p>Hola 💖<br>
           Este pequeño detalle es para ti.  
           Eres una persona increíble, y quería que lo supieras 🌸  
           Aunque estemos lejos, siempre pienso en ti.  
@@ -159,14 +187,21 @@
     const card = document.getElementById('card');
     const flowers = document.querySelectorAll('.flower');
     const message = document.getElementById('message');
+    const music = document.getElementById('music');
 
     startBtn.addEventListener('click', () => {
       startBtn.style.display = 'none';
       container.style.display = 'flex';
+      // iniciar los corazones flotando
+      setInterval(createHeart, 500);
     });
 
     card.addEventListener('click', () => {
       card.classList.toggle('flipped');
+      // reproducir música al abrir
+      if (card.classList.contains('flipped')) {
+        music.play();
+      }
     });
 
     flowers.forEach(flower => {
@@ -175,6 +210,19 @@
         message.textContent = msg;
       });
     });
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.textContent = '❤';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }
   </script>
 </body>
 </html>

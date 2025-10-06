@@ -1,195 +1,180 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Ti 💖</title>
-<style>
-body {
-  margin: 0;
-  padding: 0;
-  background: linear-gradient(135deg, #ffd1dc, #fff0f5);
-  overflow: hidden;
-  font-family: "Poppins", sans-serif;
-  color: #333;
-  text-align: center;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para Ti 💌</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ffd6ec, #ffe9f9);
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
 
-button {
-  margin-top: 20%;
-  background-color: #ff85a2;
-  border: none;
-  color: white;
-  font-size: 1.3em;
-  padding: 15px 30px;
-  border-radius: 50px;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  transition: transform 0.3s;
-}
-button:hover { transform: scale(1.05); }
+    h1 {
+      color: #ff5ca8;
+      font-size: 2em;
+      margin-bottom: 20px;
+      text-align: center;
+      animation: fadeIn 2s ease-in-out;
+    }
 
-#main-content { display: none; }
+    .start-btn {
+      background: #ff5ca8;
+      color: white;
+      padding: 15px 35px;
+      font-size: 1.1em;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+      box-shadow: 0 0 10px #ff5ca8;
+    }
 
-.flower {
-  position: absolute;
-  width: 80px;
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-.flower:hover { transform: scale(1.2); }
+    .start-btn:hover {
+      transform: scale(1.1);
+      background: #ff3388;
+    }
 
-.message {
-  position: absolute;
-  background: #fff0f5;
-  border-radius: 15px;
-  padding: 10px 15px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-  display: none;
-  font-weight: 500;
-  color: #c2185b;
-}
+    .card {
+      position: relative;
+      width: 280px;
+      height: 180px;
+      background-color: pink;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      transform-style: preserve-3d;
+      transform: rotateY(180deg);
+      transition: transform 1s;
+      display: none;
+      overflow: hidden;
+    }
 
-#letter {
-  width: 200px;
-  height: 150px;
-  background: pink;
-  margin: 200px auto;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  position: relative;
-  cursor: pointer;
-}
-#letter::before {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-left: 100px solid transparent;
-  border-right: 100px solid transparent;
-  border-bottom: 75px solid #ffb6c1;
-  top: -75px;
-  left: 0;
-}
-#letter.open .paper {
-  transform: translateY(-200px);
-  opacity: 1;
-}
+    .card.open {
+      transform: rotateY(0deg);
+    }
 
-.paper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 200px;
-  height: 250px;
-  background: #fff;
-  border-radius: 5px;
-  padding: 20px;
-  box-sizing: border-box;
-  transition: 1s;
-  transform: translateY(0);
-  opacity: 0;
-}
+    .front, .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+    }
 
-.paper p {
-  color: #c2185b;
-  font-size: 14px;
-  line-height: 1.5;
-  text-align: left;
-}
+    .front {
+      background: #ff9ecd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3em;
+      color: white;
+      font-weight: bold;
+    }
 
-.heart {
-  position: fixed;
-  width: 20px;
-  height: 20px;
-  background: rgba(255,105,180,0.7);
-  transform: rotate(45deg);
-  animation: floatUp 5s linear infinite;
-}
-.heart::before, .heart::after {
-  content: "";
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background: rgba(255,105,180,0.7);
-  border-radius: 50%;
-}
-.heart::before { top: -10px; left: 0; }
-.heart::after { left: -10px; top: 0; }
+    .back {
+      background: #fff0f6;
+      transform: rotateY(180deg);
+      padding: 15px;
+      font-size: 0.95em;
+      color: #333;
+      line-height: 1.5;
+    }
 
-@keyframes floatUp {
-  0% { transform: translateY(0) rotate(45deg); opacity: 1; }
-  100% { transform: translateY(-800px) rotate(45deg); opacity: 0; }
-}
-</style>
+    .flowers {
+      position: absolute;
+      top: 10%;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      opacity: 0;
+      transition: opacity 1s;
+    }
+
+    .flower {
+      font-size: 2em;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .flower:hover {
+      transform: scale(1.4);
+    }
+
+    .message {
+      position: absolute;
+      bottom: 10%;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 10px 20px;
+      border-radius: 15px;
+      font-size: 1em;
+      color: #ff5ca8;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
 </head>
 <body>
 
-<audio id="music" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2021/09/01/audio_efb5b9f6e5.mp3?filename=sweet-romantic-piano-9923.mp3" type="audio/mpeg">
-</audio>
+  <h1>🌸 Tengo algo especial para ti 🌸</h1>
+  <button class="start-btn" onclick="startSurprise()">Pulsa aquí 💖</button>
 
-<div id="start">
-  <button onclick="startExperience()">Pulsa para comenzar 💖</button>
-</div>
+  <div class="flowers" id="flowers">
+    <span class="flower" onclick="showMessage('Eres hermosa 💐')">🌺</span>
+    <span class="flower" onclick="showMessage('Tu sonrisa alegra mi día 🌸')">🌼</span>
+    <span class="flower" onclick="showMessage('Siempre pienso en ti 🌹')">🌻</span>
+    <span class="flower" onclick="showMessage('Gracias por existir 💖')">🌷</span>
+  </div>
 
-<div id="main-content">
-  <!-- Flores -->
-  <img src="https://cdn-icons-png.flaticon.com/512/765/765613.png" class="flower" style="top: 20%; left: 15%;" onclick="showMessage(0)">
-  <img src="https://cdn-icons-png.flaticon.com/512/1375/1375106.png" class="flower" style="top: 60%; left: 10%;" onclick="showMessage(1)">
-  <img src="https://cdn-icons-png.flaticon.com/512/1375/1375101.png" class="flower" style="top: 30%; right: 10%;" onclick="showMessage(2)">
-  <img src="https://cdn-icons-png.flaticon.com/512/1375/1375123.png" class="flower" style="bottom: 10%; right: 20%;" onclick="showMessage(3)">
-
-  <div class="message" id="msg0">Eres una persona increíble 🌸</div>
-  <div class="message" id="msg1">Me haces sonreír sin razón 💕</div>
-  <div class="message" id="msg2">Tu brillo ilumina mis días ✨</div>
-  <div class="message" id="msg3">Gracias por existir 💖</div>
-
-  <!-- Carta -->
-  <div id="letter" onclick="openLetter()">
-    <div class="paper">
-      <p>
-        Hola mi amor 💌  
-        No hay palabras que describan lo feliz que me hace hablar contigo cada día.  
-        Cada sonrisa tuya, cada mensaje, es una chispa que ilumina mi corazón.  
-        Eres ese pensamiento bonito que no se borra,  
-        y aunque la distancia nos separe, mi cariño por ti crece con cada amanecer.  
-        Gracias por ser tú, tan especial, tan única 💖  
-        — De alguien que te quiere mucho 💞
-      </p>
+  <div class="card" id="card">
+    <div class="front">💌 Toca para abrir 💌</div>
+    <div class="back" id="letter">
+      Querida...  
+      <br><br>
+      Este espacio lo puedes llenar con tus propias palabras.
+      Escribe aquí todo lo que quieras decirle con cariño,
+      algo que venga del corazón 💗.
+      <br><br>
+      — Con amor, tu persona especial 💞
     </div>
   </div>
-</div>
 
-<script>
-function startExperience() {
-  document.getElementById("start").style.display = "none";
-  document.getElementById("main-content").style.display = "block";
-  document.getElementById("music").play();
-  createHearts();
-}
+  <div class="message" id="message"></div>
 
-function showMessage(i) {
-  const msg = document.getElementById("msg" + i);
-  msg.style.display = "block";
-  setTimeout(() => { msg.style.display = "none"; }, 2500);
-}
+  <script>
+    const card = document.getElementById('card');
+    const flowers = document.getElementById('flowers');
+    const messageBox = document.getElementById('message');
 
-function openLetter() {
-  document.getElementById("letter").classList.toggle("open");
-}
+    function startSurprise() {
+      document.querySelector('.start-btn').style.display = 'none';
+      document.querySelector('h1').textContent = '💌 Descubre lo que tengo para ti 💌';
+      flowers.style.opacity = '1';
+      setTimeout(() => {
+        card.style.display = 'block';
+        setTimeout(() => card.classList.add('open'), 500);
+      }, 1000);
+    }
 
-function createHearts() {
-  setInterval(() => {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = Math.random() * 2 + 3 + "s";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 5000);
-  }, 500);
-}
-</script>
+    function showMessage(text) {
+      messageBox.textContent = text;
+      messageBox.style.opacity = 1;
+      setTimeout(() => messageBox.style.opacity = 0, 2000);
+    }
 
+    card.addEventListener('click', () => {
+      card.classList.toggle('open');
+    });
+  </script>
 </body>
 </html>

@@ -1,151 +1,180 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Ti 💌</title>
-<style>
-  body {
-    margin: 0;
-    background: linear-gradient(135deg, #ff9ac7, #ffc3a0);
-    font-family: "Poppins", sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    overflow: hidden;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌸 Una sorpresa para ti 🌸</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ffb6c1, #ffe4e1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      overflow: hidden;
+      font-family: "Poppins", sans-serif;
+    }
 
-  h1 {
-    color: white;
-    text-shadow: 2px 2px 5px #ff69b4;
-    margin-bottom: 25px;
-    text-align: center;
-  }
+    button {
+      background: #ff69b4;
+      color: white;
+      font-size: 1.2rem;
+      border: none;
+      padding: 15px 25px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 0 10px rgba(255,105,180,0.6);
+    }
 
-  .card {
-    width: 260px;
-    height: 180px;
-    perspective: 1000px;
-    cursor: pointer;
-  }
+    button:hover {
+      background: #ff85c2;
+      transform: scale(1.1);
+    }
 
-  .card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transition: transform 1s;
-    transform-style: preserve-3d;
-  }
+    .container {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
 
-  .card.flipped .card-inner {
-    transform: rotateY(180deg);
-  }
+    /* Carta */
+    .card {
+      width: 250px;
+      height: 180px;
+      perspective: 1000px;
+      cursor: pointer;
+      position: relative;
+    }
 
-  .card-front, .card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    backface-visibility: hidden;
-  }
+    .card-inner {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      transition: transform 1s;
+      transform-style: preserve-3d;
+    }
 
-  .card-front {
-    background: pink url('https://cdn-icons-png.flaticon.com/512/888/888859.png') no-repeat center/80px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    color: #ff69b4;
-    font-weight: bold;
-    font-size: 16px;
-    padding-bottom: 15px;
-  }
+    .card.flipped .card-inner {
+      transform: rotateY(180deg);
+    }
 
-  .card-back {
-    background: white;
-    transform: rotateY(180deg);
-    padding: 20px;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #444;
-    font-size: 15px;
-    line-height: 1.5;
-    text-align: center;
-    overflow-y: auto;
-  }
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    }
 
-  button {
-    margin-top: 25px;
-    padding: 10px 18px;
-    border: none;
-    border-radius: 10px;
-    background: white;
-    color: #ff69b4;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(255,105,180,0.5);
-    transition: 0.3s;
-  }
+    .card-front {
+      background: pink;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.3rem;
+      color: white;
+      background-image: url('https://i.imgur.com/y6yN5Pg.png');
+      background-size: cover;
+    }
 
-  button:hover {
-    transform: scale(1.05);
-  }
+    .card-back {
+      background: #fff0f5;
+      transform: rotateY(180deg);
+      padding: 20px;
+      text-align: center;
+      font-size: 1.1rem;
+      color: #d63384;
+      line-height: 1.5;
+    }
 
-  .flower {
-    position: absolute;
-    font-size: 20px;
-    opacity: 0;
-    transition: opacity 0.5s;
-  }
+    /* Flores */
+    .flowers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
 
-  .flower.show {
-    opacity: 1;
-  }
-</style>
+    .flower {
+      width: 80px;
+      height: 80px;
+      background-image: url('https://i.imgur.com/bx9QzqJ.png');
+      background-size: cover;
+      cursor: pointer;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    .message {
+      margin-top: 15px;
+      font-size: 1.2rem;
+      color: #c71585;
+      text-align: center;
+      min-height: 30px;
+    }
+  </style>
 </head>
 <body>
+  <button id="startBtn">✨ Pulsa aquí para comenzar ✨</button>
 
-<h1>💐 Toca la carta para abrirla 💐</h1>
-
-<div class="card" id="loveCard">
-  <div class="card-inner">
-    <div class="card-front">Toca para abrir 💌</div>
-    <div class="card-back">
-      🌸 <strong>Para ti...</strong> 🌸<br><br>
-      Eres una persona increíble.  
-      Gracias por iluminar mis días con tu cariño,  
-      aunque la distancia exista, siempre pienso en ti 💖  
-      <br><br>— Con mucho amor 💌
+  <div class="container">
+    <div class="card" id="card">
+      <div class="card-inner">
+        <div class="card-front">💌 Toca para abrir 💌</div>
+        <div class="card-back">
+          <p>Hola 💖<br>  
+          Este pequeño detalle es para ti.  
+          Eres una persona increíble, y quería que lo supieras 🌸  
+          Aunque estemos lejos, siempre pienso en ti.  
+          Gracias por ser tan especial 💕</p>
+        </div>
+      </div>
     </div>
+
+    <div class="flowers">
+      <div class="flower" data-msg="Eres más bonita que cualquier flor 🌷"></div>
+      <div class="flower" data-msg="Tu sonrisa alegra mi día 🌼"></div>
+      <div class="flower" data-msg="Cada mensaje tuyo me hace feliz 🌹"></div>
+      <div class="flower" data-msg="Te mereces todo lo lindo 💖"></div>
+      <div class="flower" data-msg="Me encanta hablar contigo 💬"></div>
+      <div class="flower" data-msg="Eres mi mejor coincidencia ✨"></div>
+    </div>
+
+    <div class="message" id="message"></div>
   </div>
-</div>
 
-<button id="flowersBtn">Mostrar flores 🌸</button>
+  <script>
+    const startBtn = document.getElementById('startBtn');
+    const container = document.querySelector('.container');
+    const card = document.getElementById('card');
+    const flowers = document.querySelectorAll('.flower');
+    const message = document.getElementById('message');
 
-<script>
-const card = document.getElementById("loveCard");
-card.addEventListener("click", () => {
-  card.classList.toggle("flipped");
-});
+    startBtn.addEventListener('click', () => {
+      startBtn.style.display = 'none';
+      container.style.display = 'flex';
+    });
 
-const btn = document.getElementById("flowersBtn");
-btn.addEventListener("click", () => {
-  for (let i = 0; i < 4; i++) {
-    const f = document.createElement("div");
-    f.className = "flower show";
-    f.innerText = ["🌹","🌸","🌼","🌷"][i];
-    f.style.left = Math.random() * 80 + "%";
-    f.style.top = Math.random() * 80 + "%";
-    document.body.appendChild(f);
-    setTimeout(() => f.remove(), 4000);
-  }
-});
-</script>
+    card.addEventListener('click', () => {
+      card.classList.toggle('flipped');
+    });
 
+    flowers.forEach(flower => {
+      flower.addEventListener('click', () => {
+        const msg = flower.getAttribute('data-msg');
+        message.textContent = msg;
+      });
+    });
+  </script>
 </body>
 </html>

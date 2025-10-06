@@ -1,180 +1,142 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Para Ti 💌</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background: linear-gradient(135deg, #ffd6ec, #ffe9f9);
-      font-family: 'Poppins', sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Ti 💌</title>
+<style>
+  body {
+    margin: 0;
+    background: linear-gradient(to bottom right, #ff9ac7, #ffc3a0);
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+  }
 
-    h1 {
-      color: #ff5ca8;
-      font-size: 2em;
-      margin-bottom: 20px;
-      text-align: center;
-      animation: fadeIn 2s ease-in-out;
-    }
+  h1 {
+    color: white;
+    text-shadow: 2px 2px 5px #ff69b4;
+    margin-bottom: 20px;
+  }
 
-    .start-btn {
-      background: #ff5ca8;
-      color: white;
-      padding: 15px 35px;
-      font-size: 1.1em;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: transform 0.2s, background 0.3s;
-      box-shadow: 0 0 10px #ff5ca8;
-    }
+  .card {
+    width: 260px;
+    height: 180px;
+    perspective: 1000px;
+    cursor: pointer;
+  }
 
-    .start-btn:hover {
-      transform: scale(1.1);
-      background: #ff3388;
-    }
+  .card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+  }
 
-    .card {
-      position: relative;
-      width: 280px;
-      height: 180px;
-      background-color: pink;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-      transform-style: preserve-3d;
-      transform: rotateY(180deg);
-      transition: transform 1s;
-      display: none;
-      overflow: hidden;
-    }
+  .card.flipped .card-inner {
+    transform: rotateY(180deg);
+  }
 
-    .card.open {
-      transform: rotateY(0deg);
-    }
+  .card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
 
-    .front, .back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-    }
+  .card-front {
+    background: pink url('https://cdn-icons-png.flaticon.com/512/888/888859.png') no-repeat center/80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-    .front {
-      background: #ff9ecd;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3em;
-      color: white;
-      font-weight: bold;
-    }
+  .card-back {
+    background: #fff;
+    transform: rotateY(180deg);
+    padding: 20px;
+    color: #444;
+    font-size: 15px;
+    line-height: 1.4;
+    text-align: center;
+    overflow-y: auto;
+  }
 
-    .back {
-      background: #fff0f6;
-      transform: rotateY(180deg);
-      padding: 15px;
-      font-size: 0.95em;
-      color: #333;
-      line-height: 1.5;
-    }
+  .flower {
+    position: absolute;
+    font-size: 20px;
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
 
-    .flowers {
-      position: absolute;
-      top: 10%;
-      width: 100%;
-      display: flex;
-      justify-content: space-around;
-      opacity: 0;
-      transition: opacity 1s;
-    }
+  .flower.show {
+    opacity: 1;
+  }
 
-    .flower {
-      font-size: 2em;
-      cursor: pointer;
-      transition: transform 0.3s;
-    }
+  button {
+    margin-top: 25px;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 10px;
+    background: white;
+    color: #ff69b4;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(255,105,180,0.5);
+    transition: 0.3s;
+  }
 
-    .flower:hover {
-      transform: scale(1.4);
-    }
+  button:hover {
+    transform: scale(1.05);
+  }
 
-    .message {
-      position: absolute;
-      bottom: 10%;
-      background: rgba(255, 255, 255, 0.9);
-      padding: 10px 20px;
-      border-radius: 15px;
-      font-size: 1em;
-      color: #ff5ca8;
-      opacity: 0;
-      transition: opacity 0.5s;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-  </style>
+</style>
 </head>
 <body>
 
-  <h1>🌸 Tengo algo especial para ti 🌸</h1>
-  <button class="start-btn" onclick="startSurprise()">Pulsa aquí 💖</button>
+<h1>💐 Pulsa la carta 💐</h1>
 
-  <div class="flowers" id="flowers">
-    <span class="flower" onclick="showMessage('Eres hermosa 💐')">🌺</span>
-    <span class="flower" onclick="showMessage('Tu sonrisa alegra mi día 🌸')">🌼</span>
-    <span class="flower" onclick="showMessage('Siempre pienso en ti 🌹')">🌻</span>
-    <span class="flower" onclick="showMessage('Gracias por existir 💖')">🌷</span>
-  </div>
-
-  <div class="card" id="card">
-    <div class="front">💌 Toca para abrir 💌</div>
-    <div class="back" id="letter">
-      Querida...  
-      <br><br>
-      Este espacio lo puedes llenar con tus propias palabras.
-      Escribe aquí todo lo que quieras decirle con cariño,
-      algo que venga del corazón 💗.
-      <br><br>
-      — Con amor, tu persona especial 💞
+<div class="card" id="loveCard">
+  <div class="card-inner">
+    <div class="card-front"></div>
+    <div class="card-back">
+      🌸 <strong>Para ti...</strong> 🌸<br><br>
+      Eres una persona increíble, y aunque estemos lejos, quiero que sepas que siempre pienso en ti.  
+      Gracias por iluminar mis días con tu cariño 💖  
+      <br><br>— Con mucho amor 💌
     </div>
   </div>
+</div>
 
-  <div class="message" id="message"></div>
+<button id="flowersBtn">Mostrar flores 🌸</button>
 
-  <script>
-    const card = document.getElementById('card');
-    const flowers = document.getElementById('flowers');
-    const messageBox = document.getElementById('message');
+<script>
+const card = document.getElementById("loveCard");
+card.addEventListener("click", () => {
+  card.classList.toggle("flipped");
+});
 
-    function startSurprise() {
-      document.querySelector('.start-btn').style.display = 'none';
-      document.querySelector('h1').textContent = '💌 Descubre lo que tengo para ti 💌';
-      flowers.style.opacity = '1';
-      setTimeout(() => {
-        card.style.display = 'block';
-        setTimeout(() => card.classList.add('open'), 500);
-      }, 1000);
-    }
+const btn = document.getElementById("flowersBtn");
+btn.addEventListener("click", () => {
+  for (let i = 0; i < 4; i++) {
+    const f = document.createElement("div");
+    f.className = "flower show";
+    f.innerText = ["🌹","🌸","🌼","🌷"][i];
+    f.style.left = Math.random() * 80 + "%";
+    f.style.top = Math.random() * 80 + "%";
+    document.body.appendChild(f);
+    setTimeout(() => f.remove(), 4000);
+  }
+});
+</script>
 
-    function showMessage(text) {
-      messageBox.textContent = text;
-      messageBox.style.opacity = 1;
-      setTimeout(() => messageBox.style.opacity = 0, 2000);
-    }
-
-    card.addEventListener('click', () => {
-      card.classList.toggle('open');
-    });
-  </script>
 </body>
 </html>

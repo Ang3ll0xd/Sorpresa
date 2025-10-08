@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>💌 Sorpresa Especial 💌</title>
+
 <style>
 body {
   margin: 0;
@@ -16,18 +17,17 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-/* Carta */
+/* --- Carta --- */
 .carta {
-  width: 320px;
-  height: 200px;
+  width: 340px;
+  height: 220px;
   perspective: 1000px;
   cursor: pointer;
-  position: relative;
 }
 .carta-inner {
-  position: relative;
   width: 100%;
   height: 100%;
+  position: relative;
   transition: transform 1s;
   transform-style: preserve-3d;
 }
@@ -43,23 +43,27 @@ body {
   box-shadow: 0 0 30px rgba(255, 105, 180, 0.6);
 }
 .carta-front {
-  background: url('https://cdn.pixabay.com/photo/2016/11/29/13/17/love-1869271_1280.jpg') no-repeat center/cover;
+  background: url('https://i.imgur.com/1F3QzD7.jpeg') center/cover no-repeat;
 }
 .carta-back {
-  background: #fff0f5;
+  background: #ffe4f1;
   transform: rotateY(180deg);
-  text-align: center;
-  color: #c2185b;
-  font-weight: bold;
-  font-size: 1.2em;
-  padding: 25px;
-  box-shadow: inset 0 0 15px rgba(255, 182, 193, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #c2185b;
+  box-shadow: inset 0 0 20px rgba(255, 182, 193, 0.5);
 }
 
-/* Animación flores y corazones */
+/* --- Animaciones --- */
+@keyframes flotar {
+  0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+}
 .flor, .corazon {
   position: absolute;
   animation: flotar linear infinite;
@@ -67,18 +71,7 @@ body {
 }
 .flor img, .corazon img {
   width: 40px;
-  opacity: 0.8;
-}
-
-@keyframes flotar {
-  0% {
-    transform: translateY(100vh) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-10vh) rotate(360deg);
-    opacity: 0;
-  }
+  opacity: 0.85;
 }
 
 .mensaje {
@@ -88,70 +81,61 @@ body {
   from { text-shadow: 0 0 5px #ff69b4; }
   to { text-shadow: 0 0 15px #ff1493; }
 }
-
 </style>
 </head>
-<body>
 
-<div class="carta" id="carta">
-  <div class="carta-inner">
-    <div class="carta-front"></div>
-    <div class="carta-back">
-      <div class="mensaje">
-        🌸 Eres una persona muy especial 🌸<br>
-        Gracias por estar en mi vida 💕<br>
-        Este detalle es solo para ti 💖
+<body>
+  <div class="carta" id="carta">
+    <div class="carta-inner">
+      <div class="carta-front"></div>
+      <div class="carta-back">
+        <div class="mensaje">
+          🌸 Eres una persona muy especial 🌸<br><br>
+          Gracias por estar en mi vida 💕<br>
+          Este detalle es solo para ti 💖
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Música -->
-<audio id="musica" src="https://cdn.pixabay.com/download/audio/2023/04/06/audio_f6ad3de66c.mp3?filename=romantic-background-145735.mp3" preload="auto"></audio>
+  <!-- Música -->
+  <audio id="musica" src="https://cdn.pixabay.com/download/audio/2023/04/06/audio_f6ad3de66c.mp3?filename=romantic-background-145735.mp3" preload="auto"></audio>
 
 <script>
-// Elementos principales
+// ---- Carta y música ----
 const carta = document.getElementById("carta");
 const musica = document.getElementById("musica");
-
-// Al hacer clic, voltea y reproduce música
 carta.addEventListener("click", () => {
   carta.classList.toggle("abierta");
   musica.play();
 });
 
-// 🌸 Flores flotando
+// ---- Flores y corazones ----
 const flores = [
-  "https://cdn.pixabay.com/photo/2016/03/31/19/56/flower-1298133_1280.png",
-  "https://cdn.pixabay.com/photo/2017/01/31/20/22/flower-2025657_1280.png",
-  "https://cdn.pixabay.com/photo/2020/04/09/12/43/flower-5020002_1280.png"
+  "https://i.imgur.com/buX8cFc.png",
+  "https://i.imgur.com/x1v4gYJ.png",
+  "https://i.imgur.com/mQZlszC.png"
 ];
-for(let i=0; i<12; i++){
-  let flor = document.createElement("div");
-  flor.classList.add("flor");
-  let img = document.createElement("img");
-  img.src = flores[Math.floor(Math.random() * flores.length)];
-  flor.style.left = Math.random() * 100 + "vw";
-  flor.style.animationDuration = 6 + Math.random() * 6 + "s";
-  flor.appendChild(img);
-  document.body.appendChild(flor);
+const corazones = [
+  "https://i.imgur.com/J3t7cE8.png",
+  "https://i.imgur.com/fnEkJ8G.png"
+];
+
+function crearAnimacion(lista, clase, cantidad, durMin, durMax) {
+  for (let i = 0; i < cantidad; i++) {
+    let elem = document.createElement("div");
+    elem.classList.add(clase);
+    let img = document.createElement("img");
+    img.src = lista[Math.floor(Math.random() * lista.length)];
+    elem.style.left = Math.random() * 100 + "vw";
+    elem.style.animationDuration = durMin + Math.random() * (durMax - durMin) + "s";
+    elem.appendChild(img);
+    document.body.appendChild(elem);
+  }
 }
 
-// 💖 Corazones flotando
-const corazones = [
-  "https://cdn.pixabay.com/photo/2016/04/01/09/23/heart-1295320_1280.png",
-  "https://cdn.pixabay.com/photo/2017/01/31/20/22/heart-2025656_1280.png"
-];
-for(let i=0; i<10; i++){
-  let corazon = document.createElement("div");
-  corazon.classList.add("corazon");
-  let img = document.createElement("img");
-  img.src = corazones[Math.floor(Math.random() * corazones.length)];
-  corazon.style.left = Math.random() * 100 + "vw";
-  corazon.style.animationDuration = 4 + Math.random() * 4 + "s";
-  corazon.appendChild(img);
-  document.body.appendChild(corazon);
-}
+crearAnimacion(flores, "flor", 12, 6, 12);
+crearAnimacion(corazones, "corazon", 10, 5, 9);
 </script>
 
 </body>

@@ -1,142 +1,485 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>💌 Sorpresa Especial 💌</title>
-
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Tu sorpresa ✨</title>
 <style>
-body {
-  margin: 0;
-  height: 100vh;
-  background: linear-gradient(135deg, #ffb6c1, #ffd1dc);
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Poppins', sans-serif;
-}
+  :root{
+    --bg1: #FFF0F6;
+    --bg2: #FFE6F2;
+    --accent: #ff4da6;
+    --soft: #ffdced;
+    --paper: #fffaf6;
+    --text: #5b1830;
+  }
 
-/* --- Carta --- */
-.carta {
-  width: 340px;
-  height: 220px;
-  perspective: 1000px;
-  cursor: pointer;
-}
-.carta-inner {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transition: transform 1s;
-  transform-style: preserve-3d;
-}
-.carta.abierta .carta-inner {
-  transform: rotateY(180deg);
-}
-.carta-front, .carta-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  border-radius: 15px;
-  box-shadow: 0 0 30px rgba(255, 105, 180, 0.6);
-}
-.carta-front {
-  background: url('https://i.imgur.com/1F3QzD7.jpeg') center/cover no-repeat;
-}
-.carta-back {
-  background: #ffe4f1;
-  transform: rotateY(180deg);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 1.1em;
-  color: #c2185b;
-  box-shadow: inset 0 0 20px rgba(255, 182, 193, 0.5);
-}
+  html,body{
+    height:100%;
+    margin:0;
+    font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    background: radial-gradient(circle at 10% 10%, var(--bg1), var(--bg2));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
 
-/* --- Animaciones --- */
-@keyframes flotar {
-  0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
-}
-.flor, .corazon {
-  position: absolute;
-  animation: flotar linear infinite;
-  pointer-events: none;
-}
-.flor img, .corazon img {
-  width: 40px;
-  opacity: 0.85;
-}
+  /* stage */
+  .stage{
+    width:100%;
+    max-width:980px;
+    padding:28px;
+    box-sizing:border-box;
+    text-align:center;
+    position:relative;
+  }
 
-.mensaje {
-  animation: brillar 2s infinite alternate;
-}
-@keyframes brillar {
-  from { text-shadow: 0 0 5px #ff69b4; }
-  to { text-shadow: 0 0 15px #ff1493; }
-}
+  h1{
+    margin:0 0 12px 0;
+    font-size:26px;
+    color:var(--accent);
+    font-weight:700;
+  }
+  p.lead{ margin:0 0 18px 0; color:#6b2742; }
+
+  /* gift box */
+  .box-wrap{
+    margin: 0 auto;
+    width:340px;
+    height:240px;
+    position:relative;
+    perspective:1300px;
+  }
+  .box {
+    width:100%;
+    height:100%;
+    position:relative;
+    transform-style:preserve-3d;
+  }
+
+  /* base of box */
+  .box-base{
+    position:absolute;
+    left:0; top:36%;
+    width:100%;
+    height:64%;
+    background:linear-gradient(180deg,#ffbad3,#ff9ec7);
+    border-radius:12px;
+    box-shadow: 0 18px 40px rgba(170,40,100,0.18), inset 0 -6px 20px rgba(255,255,255,0.15);
+    z-index:10;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+
+  /* lid */
+  .box-lid{
+    position:absolute;
+    left:0; top:0;
+    width:100%;
+    height:56%;
+    background: linear-gradient(180deg,#ff98c7,#ff77b6);
+    border-radius:14px;
+    transform-origin: top center;
+    box-shadow:0 12px 30px rgba(110,20,60,0.18);
+    z-index:20;
+    transition: transform 900ms cubic-bezier(.2,.9,.2,1);
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    padding-bottom:12px;
+    color:white;
+    font-weight:700;
+    letter-spacing:0.6px;
+    text-shadow:0 2px 8px rgba(0,0,0,0.12);
+  }
+
+  /* when opened */
+  .box.open .box-lid{
+    transform: rotateX(-120deg) translateY(-14%);
+  }
+
+  /* ribbon (decorative) */
+  .ribbon{
+    position:absolute;
+    left:50%; transform:translateX(-50%);
+    top:8%;
+    width:64%;
+    height:14%;
+    border-radius:8px;
+    background:linear-gradient(90deg,#fff6fb33,#fff);
+    z-index:25;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:700; color:#fff;
+    mix-blend-mode:overlay;
+  }
+
+  /* paper that rises */
+  .paper {
+    position:absolute;
+    left:50%; transform:translateX(-50%);
+    top:44%;
+    width:86%;
+    height:62%;
+    background:var(--paper);
+    border-radius:10px;
+    box-shadow: 0 8px 28px rgba(90,20,60,0.14);
+    padding:18px;
+    box-sizing:border-box;
+    opacity:0;
+    transform: translateY(18px) scale(.98);
+    transition: opacity .6s ease, transform .6s cubic-bezier(.2,.9,.2,1);
+    z-index:15;
+    pointer-events:none;
+  }
+  .box.open .paper{
+    opacity:1;
+    transform: translateY(-10px) scale(1);
+    pointer-events:auto;
+  }
+
+  .paper h2{
+    margin:0 0 6px 0;
+    color:var(--accent);
+    font-family: "Great Vibes", cursive;
+    font-size:30px;
+  }
+  .paper .txt{
+    margin-top:8px;
+    color:var(--text);
+    line-height:1.45;
+    text-align:left;
+    white-space:pre-wrap;
+    font-size:15px;
+    max-height:220px;
+    overflow:auto;
+  }
+
+  /* flowers (SVG buttons) */
+  .flowers{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+  }
+  .flower-btn{
+    position:absolute;
+    width:56px; height:56px;
+    pointer-events:auto;
+    cursor:pointer;
+    transform-origin:center;
+    transition: transform .22s ease;
+  }
+  .flower-btn:active{ transform: scale(.95) }
+
+  /* message popup near flower */
+  .bubble{
+    position:absolute;
+    min-width:120px;
+    background:rgba(255,255,255,0.96);
+    border-radius:12px;
+    padding:8px 10px;
+    box-shadow:0 8px 26px rgba(120,10,60,0.12);
+    color: #5b1738;
+    font-weight:600;
+    display:none;
+    z-index:60;
+    transform-origin: bottom center;
+  }
+
+  /* hearts floating (absolute so on top) */
+  .floating-heart{
+    position:fixed;
+    font-size:18px;
+    z-index:8;
+    opacity:0.95;
+    pointer-events:none;
+    transform:translateY(0);
+    animation: riseUp linear forwards;
+  }
+  @keyframes riseUp{
+    0%{transform: translateY(0) scale(1); opacity:1}
+    100%{transform: translateY(-110vh) scale(1.3); opacity:0}
+  }
+
+  /* final modal */
+  .final-modal{
+    position:fixed;
+    inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    background:linear-gradient(180deg, rgba(0,0,0,0.26), rgba(0,0,0,0.18));
+  }
+  .final-box{
+    background: white;
+    border-radius:16px;
+    padding:26px 30px;
+    text-align:center;
+    box-shadow:0 24px 80px rgba(90,10,50,0.2);
+  }
+  .final-box h3{ margin:0 0 8px 0; color:var(--accent); font-family:"Great Vibes", cursive; font-size:34px }
+  .final-box p{ margin:0; color:#5b1738 }
+
+  /* responsive */
+  @media (max-width:520px){
+    .box-wrap{ width:88%; max-width:320px; }
+    .paper h2 { font-size:26px; }
+  }
 </style>
 </head>
-
 <body>
-  <div class="carta" id="carta">
-    <div class="carta-inner">
-      <div class="carta-front"></div>
-      <div class="carta-back">
-        <div class="mensaje">
-          🌸 Eres una persona muy especial 🌸<br><br>
-          Gracias por estar en mi vida 💕<br>
-          Este detalle es solo para ti 💖
+  <div class="stage">
+    <h1>Una sorpresa especial</h1>
+    <p class="lead">Toca la cajita para abrir — descubre mensajes y flores secretas.</p>
+
+    <div class="box-wrap" style="margin:18px auto;">
+      <div class="box" id="boxRoot">
+        <div class="box-lid">¡Sorpresa!</div>
+        <div class="ribbon">🎀</div>
+
+        <div class="box-base"></div>
+
+        <div class="paper" id="paper">
+          <h2>Para ti</h2>
+          <div class="txt" id="paperText"></div>
         </div>
       </div>
     </div>
+
+    <!-- flower buttons -->
+    <div class="flowers" id="flowersLayer" aria-hidden="false">
+      <!-- positions are percentages so responsive -->
+      <div class="flower-btn" style="left:6%; top:18%;" data-msg="Eres lo mejor de mi día 💕" id="f1" aria-label="flor 1">
+        <!-- simple SVG flower -->
+        <svg viewBox="0 0 64 64" width="56" height="56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="32" r="8" fill="#FFD166"></circle>
+          <g fill="#FF7AA2">
+            <ellipse cx="32" cy="12" rx="8" ry="12"></ellipse>
+            <ellipse cx="32" cy="52" rx="8" ry="12"></ellipse>
+            <ellipse cx="12" cy="32" rx="12" ry="8"></ellipse>
+            <ellipse cx="52" cy="32" rx="12" ry="8"></ellipse>
+            <ellipse cx="18" cy="18" rx="9" ry="6" transform="rotate(-35 18 18)"></ellipse>
+            <ellipse cx="46" cy="46" rx="9" ry="6" transform="rotate(-35 46 46)"></ellipse>
+          </g>
+        </svg>
+      </div>
+
+      <div class="flower-btn" style="left:78%; top:10%;" data-msg="Tu sonrisa ilumina todo ✨" id="f2">
+        <svg viewBox="0 0 64 64" width="56" height="56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="32" r="8" fill="#FFD166"></circle>
+          <g fill="#FF7AA2">
+            <ellipse cx="32" cy="10" rx="8" ry="12"></ellipse>
+            <ellipse cx="32" cy="54" rx="8" ry="12"></ellipse>
+            <ellipse cx="12" cy="32" rx="12" ry="8"></ellipse>
+            <ellipse cx="52" cy="32" rx="12" ry="8"></ellipse>
+            <ellipse cx="18" cy="46" rx="9" ry="6" transform="rotate(35 18 46)"></ellipse>
+            <ellipse cx="46" cy="18" rx="9" ry="6" transform="rotate(35 46 18)"></ellipse>
+          </g>
+        </svg>
+      </div>
+
+      <div class="flower-btn" style="left:14%; top:68%;" data-msg="Me haces sonreír sin razón 😊" id="f3">
+        <svg viewBox="0 0 64 64" width="56" height="56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="32" r="8" fill="#FFD166"></circle>
+          <g fill="#FF7AA2">
+            <ellipse cx="32" cy="12" rx="8" ry="12"></ellipse>
+            <ellipse cx="32" cy="52" rx="8" ry="12"></ellipse>
+            <ellipse cx="12" cy="32" rx="12" ry="8"></ellipse>
+            <ellipse cx="52" cy="32" rx="12" ry="8"></ellipse>
+            <ellipse cx="18" cy="18" rx="9" ry="6" transform="rotate(-35 18 18)"></ellipse>
+            <ellipse cx="46" cy="46" rx="9" ry="6" transform="rotate(-35 46 46)"></ellipse>
+          </g>
+        </svg>
+      </div>
+
+      <div class="flower-btn" style="left:62%; top:72%;" data-msg="Gracias por existir 💖" id="f4">
+        <svg viewBox="0 0 64 64" width="56" height="56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="32" r="8" fill="#FFD166"></circle>
+          <g fill="#FF7AA2">
+            <ellipse cx="32" cy="10" rx="8" ry="12"></ellipse>
+            <ellipse cx="32" cy="54" rx="8" ry="12"></ellipse>
+            <ellipse cx="12" cy="32" rx="12" ry="8"></ellipse>
+            <ellipse cx="52" cy="32" rx="12" ry="8"></ellipse>
+            <ellipse cx="18" cy="46" rx="9" ry="6" transform="rotate(35 18 46)"></ellipse>
+            <ellipse cx="46" cy="18" rx="9" ry="6" transform="rotate(35 46 18)"></ellipse>
+          </g>
+        </svg>
+      </div>
+
+      <div class="flower-btn" style="left:40%; top:5%;" data-msg="Pienso en ti cada día 🌙" id="f5">
+        <svg viewBox="0 0 64 64" width="56" height="56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="32" r="8" fill="#FFD166"></circle>
+          <g fill="#FF7AA2">
+            <ellipse cx="32" cy="12" rx="8" ry="12"></ellipse>
+            <ellipse cx="32" cy="52" rx="8" ry="12"></ellipse>
+            <ellipse cx="12" cy="32" rx="12" ry="8"></ellipse>
+            <ellipse cx="52" cy="32" rx="12" ry="8"></ellipse>
+            <ellipse cx="18" cy="18" rx="9" ry="6" transform="rotate(-35 18 18)"></ellipse>
+            <ellipse cx="46" cy="46" rx="9" ry="6" transform="rotate(-35 46 46)"></ellipse>
+          </g>
+        </svg>
+      </div>
+
+      <div class="flower-btn" style="left:86%; top:58%;" data-msg="Quiero verte sonreír siempre 🌼" id="f6">
+        <svg viewBox="0 0 64 64" width="56" height="56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="32" r="8" fill="#FFD166"></circle>
+          <g fill="#FF7AA2">
+            <ellipse cx="32" cy="10" rx="8" ry="12"></ellipse>
+            <ellipse cx="32" cy="54" rx="8" ry="12"></ellipse>
+            <ellipse cx="12" cy="32" rx="12" ry="8"></ellipse>
+            <ellipse cx="52" cy="32" rx="12" ry="8"></ellipse>
+            <ellipse cx="18" cy="46" rx="9" ry="6" transform="rotate(35 18 46)"></ellipse>
+            <ellipse cx="46" cy="18" rx="9" ry="6" transform="rotate(35 46 18)"></ellipse>
+          </g>
+        </svg>
+      </div>
+
+      <!-- bubble -->
+      <div class="bubble" id="bubble"></div>
+    </div>
+
   </div>
 
-  <!-- Música -->
-  <audio id="musica" src="https://cdn.pixabay.com/download/audio/2023/04/06/audio_f6ad3de66c.mp3?filename=romantic-background-145735.mp3" preload="auto"></audio>
+  <!-- final modal -->
+  <div class="final-modal" id="finalModal">
+    <div class="final-box">
+      <h3>Gracias por existir ❤️</h3>
+      <p>Te prometo una sorpresa más grande cuando nos veamos.</p>
+    </div>
+  </div>
 
 <script>
-// ---- Carta y música ----
-const carta = document.getElementById("carta");
-const musica = document.getElementById("musica");
-carta.addEventListener("click", () => {
-  carta.classList.toggle("abierta");
-  musica.play();
+/* ========== Configurables ========== */
+const mainMessage = `Hoy pensé mucho en qué podía regalarte. Aunque no puedo estar ahí, quería que sintieras que pienso en ti. Gracias por ser como eres. — [Tu nombre]`;
+
+/* ========== Setup ========== */
+const boxRoot = document.getElementById('boxRoot') || document.getElementById('boxRoot'); // not used directly but kept for clarity
+const paperText = document.getElementById('paperText');
+const box = document.getElementById('boxRoot') || document.querySelector('.box-wrap')?.firstElementChild || document.querySelector('.box-wrap');
+const boxElement = document.querySelector('.box-wrap .box') || document.getElementById('boxRoot') || document.querySelector('.box');
+const boxRootEl = document.querySelector('.box-wrap .box') || document.querySelector('.box');
+const paper = document.getElementById('paper');
+const bubble = document.getElementById('bubble');
+const flowerButtons = document.querySelectorAll('.flower-btn');
+const finalModal = document.getElementById('finalModal');
+
+/* put main message in paper (will type) */
+let typedDone = false;
+function typeText(text, el, speed=18){
+  el.textContent = '';
+  let i = 0;
+  function step(){
+    if(i < text.length){
+      el.textContent += text.charAt(i);
+      i++;
+      let delay = speed + Math.random()*20;
+      if(text.charAt(i-1) === '.' || text.charAt(i-1) === '\n') delay += 120;
+      setTimeout(step, delay);
+    } else {
+      typedDone = true;
+      // show final after a bit if all flowers clicked
+    }
+  }
+  step();
+}
+
+/* open/close box on click */
+const boxWrap = document.querySelector('.box-wrap');
+boxWrap.addEventListener('click', (ev)=>{
+  // open animation: toggle class on inner .box
+  const innerBox = boxWrap.querySelector('.box') || boxWrap.querySelector('.box');
+  if(!innerBox) return;
+  innerBox.classList.toggle('open');
+  if(innerBox.classList.contains('open')){
+    // start typing when opened
+    if(!typedDone) typeText(mainMessage, paperText);
+    // start floating hearts
+    startHearts();
+  } else {
+    // if closed, hide bubble and reset
+    bubble.style.display='none';
+  }
 });
 
-// ---- Flores y corazones ----
-const flores = [
-  "https://i.imgur.com/buX8cFc.png",
-  "https://i.imgur.com/x1v4gYJ.png",
-  "https://i.imgur.com/mQZlszC.png"
-];
-const corazones = [
-  "https://i.imgur.com/J3t7cE8.png",
-  "https://i.imgur.com/fnEkJ8G.png"
-];
+/* flower interaction */
+let clickedFlowers = 0;
+flowerButtons.forEach(btn => {
+  btn.addEventListener('click', ev => {
+    ev.stopPropagation(); // don't trigger box open/close
+    const msg = btn.dataset.msg || 'Te quiero';
+    // position bubble near button
+    const rect = btn.getBoundingClientRect();
+    const bw = bubble.offsetWidth;
+    bubble.style.left = (rect.left + rect.width/2 - bw/2) + 'px';
+    bubble.style.top = (rect.top - 8) + 'px';
+    bubble.textContent = msg;
+    bubble.style.display = 'block';
+    bubble.style.transform = 'scale(.96)';
+    bubble.style.opacity = '1';
+    setTimeout(()=> {
+      bubble.style.transform = 'scale(1)';
+    },10);
+    // minor flower pop
+    btn.animate([{transform:'scale(.96)'},{transform:'scale(1.06)'},{transform:'scale(1)'}],{duration:420,easing:'cubic-bezier(.2,.9,.2,1)'});
+    // count and if all clicked show final
+    if(!btn.dataset.clicked){
+      btn.dataset.clicked = '1';
+      clickedFlowers++;
+      if(clickedFlowers >= flowerButtons.length){
+        setTimeout(()=> showFinal(), 900);
+      }
+    }
+  });
+});
 
-function crearAnimacion(lista, clase, cantidad, durMin, durMax) {
-  for (let i = 0; i < cantidad; i++) {
-    let elem = document.createElement("div");
-    elem.classList.add(clase);
-    let img = document.createElement("img");
-    img.src = lista[Math.floor(Math.random() * lista.length)];
-    elem.style.left = Math.random() * 100 + "vw";
-    elem.style.animationDuration = durMin + Math.random() * (durMax - durMin) + "s";
-    elem.appendChild(img);
-    document.body.appendChild(elem);
+/* floating hearts */
+let heartInterval = null;
+function startHearts(){
+  if(heartInterval) return;
+  heartInterval = setInterval(()=> {
+    const h = document.createElement('div');
+    h.className = 'floating-heart';
+    h.style.left = Math.random()*90 + 'vw';
+    h.style.fontSize = (14 + Math.random()*22) + 'px';
+    h.textContent = ['💖','💕','❤'][Math.floor(Math.random()*3)];
+    h.style.animationDuration = (4 + Math.random()*4) + 's';
+    document.body.appendChild(h);
+    setTimeout(()=> h.remove(), 8500);
+  }, 420);
+}
+
+/* final modal */
+function showFinal(){
+  finalModal.style.display = 'flex';
+  // small confetti (simple hearts)
+  for(let i=0;i<40;i++){
+    const c = document.createElement('div');
+    c.textContent = ['✨','💗','🌟'][Math.floor(Math.random()*3)];
+    c.style.position='fixed';
+    c.style.left = (10 + Math.random()*80) + 'vw';
+    c.style.top = (20 + Math.random()*60) + 'vh';
+    c.style.fontSize = (12 + Math.random()*26) + 'px';
+    c.style.opacity = '.95';
+    c.style.transform = `translateY(-20px)`;
+    c.style.zIndex = 9999;
+    document.body.appendChild(c);
+    setTimeout(()=> c.remove(), 2200 + Math.random()*2400);
   }
 }
 
-crearAnimacion(flores, "flor", 12, 6, 12);
-crearAnimacion(corazones, "corazon", 10, 5, 9);
-</script>
+/* close final on click */
+finalModal.addEventListener('click', ()=> finalModal.style.display='none');
 
+/* accessibility: allow keyboard open (enter/space) */
+boxWrap.setAttribute('tabindex','0');
+boxWrap.addEventListener('keydown', (e)=>{
+  if(e.key === 'Enter' || e.key === ' ') boxWrap.click();
+});
+</script>
 </body>
 </html>

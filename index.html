@@ -3,106 +3,127 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Una sorpresa ✨</title>
+<title>Sorpresa — maquilla & amor</title>
 <style>
   :root{
-    --bg1: #fff0f6;
-    --bg2: #ffd6e8;
-    --accent: #ff6fa5;
-    --soft: #ffeef6;
-    --paper: #fffaf6;
-    --text: #4b2430;
+    --bg-a:#fff0f6;
+    --accent:#ff5c8d;
+    --muted:#7a4a5a;
+    --paper:#fff8fb;
+    --gold: #ffd27a;
   }
-  html,body{height:100%;margin:0;font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background: radial-gradient(1200px 600px at 10% 10%, #fff5fb 0%, var(--bg1) 20%, var(--bg2) 100%); color:var(--text); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;}
-  .stage{height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;padding:24px;box-sizing:border-box;}
-  h1{margin:0;color:var(--accent);font-size:20px;letter-spacing:0.4px}
-  p.lead{margin:0;color:#6b4350;opacity:.9}
+  html,body{height:100%;margin:0;font-family:Inter, "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;}
+  body{
+    background: radial-gradient(1000px 500px at 10% 10%, #fff6fb 0%, #ffeef7 15%, #fdeff4 35%, #fff 100%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    overflow:hidden;
+    color:var(--muted);
+  }
 
-  /* center area */
-  .center-wrap{position:relative;width:100%;max-width:980px;display:flex;align-items:center;justify-content:center;min-height:420px;}
+  /* stage */
+  .stage{width:100%;max-width:1120px;padding:20px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:14px;}
+  h1{margin:0;color:var(--accent);font-size:20px}
+  p.lead{margin:0;color:#6d3d4a;opacity:.9}
 
-  /* 3D box */
-  .box-wrap{width:360px;height:260px;perspective:1400px;display:flex;align-items:center;justify-content:center;position:relative;}
+  .center{width:100%;display:flex;align-items:center;justify-content:center;position:relative;padding:18px 0;box-sizing:border-box;}
+
+  /* box container */
+  .box-wrap{width:360px;height:260px;perspective:1400px;position:relative;display:flex;align-items:center;justify-content:center}
   .box{
-    width:260px;height:200px;position:relative;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.2,.9,.2,1);
+    width:280px;height:200px;position:relative;transform-style:preserve-3d;transition: transform .9s cubic-bezier(.2,.9,.2,1);
   }
-  .box.open{transform: translateY(-6px) rotateX(-6deg) rotateY(6deg) scale(1.02);}
+  .box.open{transform: translateY(-8px) rotateX(-6deg) rotateY(6deg) scale(1.02);}
 
   .lid{
-    position:absolute;top:-10px;left:0;right:0;margin:auto;width:260px;height:86px;border-radius:14px;background:linear-gradient(180deg,#ff9ec7,#ff7aa6);box-shadow:0 16px 40px rgba(160,30,70,0.18);transform-origin:center bottom;transition:transform .9s cubic-bezier(.2,.9,.2,1);z-index:30;display:flex;align-items:flex-end;justify-content:center;padding-bottom:12px;color:white;font-weight:700;font-size:14px;letter-spacing:.6px;text-shadow:0 2px 8px rgba(0,0,0,0.08);
+    position:absolute;left:0;right:0;margin:auto;top:-12px;width:280px;height:92px;border-radius:14px;
+    background: linear-gradient(180deg,#ff9ec7,#ff6fa5);
+    box-shadow: 0 18px 44px rgba(160,30,70,0.14);
+    transform-origin: center bottom;
+    transition: transform .9s cubic-bezier(.2,.9,.2,1);
+    z-index:30;display:flex;align-items:flex-end;justify-content:center;padding-bottom:14px;color:white;font-weight:700;
+    text-shadow:0 2px 8px rgba(0,0,0,0.06);letter-spacing:.6px;font-size:14px;
   }
   .box.open .lid{transform: rotateX(-150deg) translateY(-12%);}
 
-  .box-body{
-    position:absolute;left:0;right:0;bottom:0;margin:auto;width:260px;height:160px;background:linear-gradient(180deg,#ffd6e8,#ffb6d6);border-radius:12px;box-shadow:0 18px 44px rgba(150,30,70,0.12);overflow:hidden;z-index:10;display:flex;align-items:center;justify-content:center;
+  .body{
+    position:absolute;left:0;right:0;bottom:0;margin:auto;width:280px;height:140px;border-radius:12px;
+    background: linear-gradient(180deg,#ffd6e8,#ffb6d6);
+    box-shadow:0 20px 48px rgba(140,30,60,0.12);
+    z-index:10;display:flex;align-items:center;justify-content:center;overflow:hidden;
   }
 
-  /* paper that floats up */
+  /* floating paper */
   .paper{
-    position:absolute;left:50%;transform:translateX(-50%) translateY(40px) scale(.98);top:36%;width:78%;background:linear-gradient(180deg,#fffaf6,#fff1f8);border-radius:10px;padding:18px;box-shadow:0 18px 40px rgba(80,20,50,0.14);opacity:0;transition: all .9s cubic-bezier(.2,.9,.2,1);z-index:25;pointer-events:auto;
+    position:absolute;left:50%;top:32%;transform:translateX(-50%) translateY(28px) scale(.98);
+    width:78%;min-height:120px;background:linear-gradient(180deg,var(--paper),#fff1f6);
+    border-radius:10px;padding:18px;box-shadow:0 18px 40px rgba(80,20,50,0.12);opacity:0;
+    transition:all .9s cubic-bezier(.2,.9,.2,1);z-index:25;pointer-events:auto;
   }
-  .box.open + .paper{opacity:1;transform:translateX(-50%) translateY(-20px) scale(1);}
+  .box.open + .paper{opacity:1;transform:translateX(-50%) translateY(-28px) scale(1);}
 
-  .paper h2{margin:0;font-family:"Dancing Script", cursive;font-size:28px;color:var(--accent);text-align:center}
-  .paper .body-txt{margin-top:10px;color:#452633;text-align:left;line-height:1.5;max-height:260px;overflow:auto;font-size:15px;white-space:pre-wrap;}
+  .paper h2{margin:0;font-family:"Dancing Script",cursive;font-size:28px;color:var(--accent);text-align:center}
+  .paper .body-txt{margin-top:10px;color:var(--muted);line-height:1.6;font-size:15px;white-space:pre-wrap;max-height:320px;overflow:auto}
 
-  /* floating hearts layer */
-  .hearts-layer{position:fixed;inset:0;pointer-events:none;z-index:5;overflow:hidden}
+  /* flowers / makeup items layer */
+  .items-layer{position:absolute;inset:0;z-index:40;pointer-events:none}
+  .item-btn{position:absolute;width:56px;height:56px;pointer-events:auto;cursor:pointer;transition:transform .18s ease;outline:none}
+  .item-btn:active{transform:scale(.94)}
 
-  /* flower buttons (SVG) */
-  .flowers-layer{position:absolute;inset:0;z-index:40;pointer-events:none}
-  .flower-btn{position:absolute;width:56px;height:56px;pointer-events:auto;cursor:pointer;transform-origin:center center;transition:transform .18s ease}
+  /* bubble */
+  .bubble{position:fixed;background:rgba(255,255,255,0.98);padding:10px 12px;border-radius:12px;box-shadow:0 12px 30px rgba(120,20,60,0.12);color:#5b2636;font-weight:700;z-index:120;display:none;max-width:260px;text-align:center}
 
-  .flower-btn:active{transform:scale(.94)}
-  .bubble{position:fixed;background:rgba(255,255,255,0.98);padding:10px 12px;border-radius:12px;box-shadow:0 10px 30px rgba(120,20,60,0.12);color:#5b2636;font-weight:700;z-index:120;display:none;max-width:220px;text-align:center}
+  /* hearts (topmost) */
+  .hearts{position:fixed;inset:0;pointer-events:none;z-index:6;overflow:hidden}
 
-  /* play sound button fallback */
-  #playAudioBtn{position:fixed;bottom:22px;right:22px;background:linear-gradient(90deg,#ff5c8d,#ff80ab);color:white;border:none;padding:12px 16px;border-radius:10px;box-shadow:0 8px 30px rgba(200,40,100,0.18);font-weight:700;display:none;z-index:200;cursor:pointer}
+  /* fallback audio button */
+  #playAudioBtn{position:fixed;bottom:18px;right:18px;background:linear-gradient(90deg,#ff6fa5,#ff9ec7);color:white;border:none;padding:12px 14px;border-radius:12px;box-shadow:0 8px 30px rgba(200,40,100,0.18);font-weight:700;display:none;z-index:220;cursor:pointer}
 
-  /* final signature anim */
-  .signature{margin-top:12px;font-weight:700;color:#6b2b42;opacity:0;transform:translateY(8px);transition:all .8s ease}
-  .show-sign{opacity:1;transform:translateY(0)}
+  /* signature */
+  .signature{margin-top:10px;font-weight:700;color:#542435;opacity:0;transform:translateY(6px);transition:all .8s ease}
+  .signature.show{opacity:1;transform:translateY(0)}
+
+  /* responsive */
   @media (max-width:520px){
     .box-wrap{width:86%;height:auto}
-    .box{transform:none}
-    .lid{font-size:13px}
+    .box{width:84%;height:auto}
+    .lid{width:84%}
+    .body{width:84%}
     .paper{width:90%}
   }
 </style>
 </head>
 <body>
-  <div class="stage" aria-live="polite">
-    <h1>Una sorpresa para ti</h1>
-    <p class="lead">Abre la cajita y descubre lo que guardé ✨</p>
+  <div class="stage" role="main" aria-live="polite">
+    <h1>Un detalle especial</h1>
+    <p class="lead">Abre la caja y descubre un toque inspirado en maquillaje.</p>
 
-    <div class="center-wrap">
-      <div class="box-wrap" id="boxWrap" role="button" aria-label="Caja sorpresa">
+    <div class="center" style="width:100%;max-width:980px;">
+      <div class="box-wrap" id="boxWrap" tabindex="0" aria-label="Caja sorpresa">
         <div class="box" id="box">
           <div class="lid">¡Sorpresa!</div>
-          <div class="box-body" aria-hidden="true"></div>
+          <div class="body" aria-hidden="true"></div>
         </div>
+
         <div class="paper" id="paper" role="region" aria-labelledby="paperTitle">
           <h2 id="paperTitle">Para ti</h2>
-          <div class="body-txt" id="paperTxt">
-            /* el texto poético aparecerá aquí */
-          </div>
+          <div class="body-txt" id="paperTxt"> <!-- content typed by JS --> </div>
           <div class="signature" id="signature">— Con cariño, Angello</div>
         </div>
-        <div class="flowers-layer" id="flowersLayer" aria-hidden="false"></div>
-      </div>
 
-      <!-- floating hearts -->
-      <div class="hearts-layer" id="heartsLayer" aria-hidden="true"></div>
+        <div class="items-layer" id="itemsLayer" aria-hidden="false"></div>
+      </div>
     </div>
+
+    <div class="hearts" id="hearts"></div>
   </div>
 
-  <!-- bubble for flower messages -->
-  <div class="bubble" id="bubble"></div>
-
-  <!-- fallback play audio -->
+  <div class="bubble" id="bubble" role="status" aria-live="polite"></div>
   <button id="playAudioBtn">Tocar música ♫</button>
 
-  <!-- audio (try autoplay) -->
+  <!-- audio (pixabay) -->
   <audio id="bgAudio" preload="auto">
     <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7e69a4fa17.mp3?filename=romantic-piano-ambient-110955.mp3" type="audio/mpeg">
   </audio>
@@ -110,48 +131,46 @@
 <script>
 /* ---------------- CONFIG ---------------- */
 const POEM = `He guardado pequeñas luces en esta caja,
-pequeños trazos de luna, murmullos de tarde.
-Que tu sonrisa, cuando la leas, se vuelva mi paisaje;
-que el eco de mi voz llegue suave en cada renglón.
+pequeños trazos de luna y polvos de brillo.
+Que tu sonrisa, cuando la leas, sea paisaje cálido;
+que mi voz llegue suave en cada renglón.
 
-Si alguna vez el mundo parece frío,
-recuerda que en un rincón hay un latido que te nombra.
-Que mi cariño te encuentre en las horas serenas,
-y que esta carta te recuerde lo inmenso de lo simple.`;
+Si alguna vez la noche se siente fría,
+recuerda que hay un latido que te nombra.
+Que esta carta te encuentre en horas serenas,
+y que el cariño que guardo te abrace en lo simple.`;
 
-const FLOWER_MESSAGES = [
-  "Tu risa es mi melodía favorita ✨",
-  "Cada día te pienso más de lo que crees 💭",
-  "Eres luz en mis mañanas 🌅",
-  "Me encanta cómo eres, sin filtros 💖",
-  "Tu presencia hace que todo sea mejor 🌸",
-  "Siempre guardo una sonrisa pensando en ti ☀️"
+const ITEM_MESSAGES = [
+  "Tu brillo es incomparable ✨",
+  "Eres más bella que cualquier paleta 🎨",
+  "Tu sonrisa ilumina el día ☀️",
+  "Me pierdo en tu mirada cada vez 💫",
+  "Eres auténtica y preciosa 🌸",
+  "Tu sonrisa es mi mejor elección 💖"
 ];
 
-const FLOWER_POSITIONS = [
-  {left:'8%', top:'14%'},
-  {left:'78%', top:'10%'},
-  {left:'12%', top:'68%'},
-  {left:'64%', top:'72%'},
-  {left:'40%', top:'6%'},
-  {left:'86%', top:'58%'}
+const ITEM_POS = [
+  {left:'8%', top:'14%'}, {left:'78%', top:'10%'},
+  {left:'12%', top:'68%'}, {left:'64%', top:'72%'},
+  {left:'40%', top:'6%'}, {left:'86%', top:'58%'}
 ];
 
-/* ---------------- HELPERS & ELEMENTS ---------------- */
+/* ---------------- DOM ---------------- */
 const box = document.getElementById('box');
+const boxWrap = document.getElementById('boxWrap');
 const paper = document.getElementById('paper');
 const paperTxt = document.getElementById('paperTxt');
 const signature = document.getElementById('signature');
-const flowersLayer = document.getElementById('flowersLayer');
-const heartsLayer = document.getElementById('heartsLayer');
+const itemsLayer = document.getElementById('itemsLayer');
+const heartsLayer = document.getElementById('hearts');
 const bubble = document.getElementById('bubble');
 const playAudioBtn = document.getElementById('playAudioBtn');
 const audio = document.getElementById('bgAudio');
 
-let flowersCreated = false;
+let itemsCreated = false;
 
-/* ---------- typewriter for poem ---------- */
-function typePoem(text, target, speed=16){
+/* ---------- Typewriter effect ---------- */
+function typeText(text, target, speed=14){
   target.textContent = '';
   let i=0;
   function step(){
@@ -162,34 +181,10 @@ function typePoem(text, target, speed=16){
       if(text.charAt(i-1) === '.' || text.charAt(i-1) === '\n') delay += 120;
       setTimeout(step, delay);
     } else {
-      // show signature
-      signature.classList.add('show-sign');
+      signature.classList.add('show');
     }
   }
   step();
-}
-
-/* ---------- open box (auto) ---------- */
-function openBox(){
-  box.classList.add('open'); // cosmetic open
-  // show paper after small delay
-  setTimeout(()=> {
-    paper.style.opacity = '1';
-    // start poem typing
-    typePoem(POEM, paperTxt, 14);
-  }, 600);
-
-  // create hearts continuously
-  startHearts();
-
-  // create flowers (appear and float)
-  createFlowers();
-  // try to play music (browsers may block)
-  audio.volume = 0.38;
-  audio.play().catch(()=> {
-    // show fallback play button
-    playAudioBtn.style.display = 'block';
-  });
 }
 
 /* ---------- hearts floating ---------- */
@@ -197,102 +192,123 @@ let heartsInterval = null;
 function startHearts(){
   if(heartsInterval) return;
   heartsInterval = setInterval(()=> {
-    const h = document.createElement('div');
-    h.textContent = ['💖','💕','❤️'][Math.floor(Math.random()*3)];
-    h.className = 'floating-heart';
-    h.style.left = (10 + Math.random()*80) + 'vw';
-    h.style.fontSize = (12 + Math.random()*28) + 'px';
-    h.style.animationDuration = (4 + Math.random()*5) + 's';
-    heartsLayer.appendChild(h);
-    setTimeout(()=> h.remove(), 9000);
+    const el = document.createElement('div');
+    el.textContent = ['💖','💕','❤'][Math.floor(Math.random()*3)];
+    el.style.position='fixed';
+    el.style.left = (8 + Math.random()*84) + 'vw';
+    el.style.bottom = '-10vh';
+    el.style.fontSize = (12 + Math.random()*28) + 'px';
+    el.style.zIndex = 6;
+    el.style.pointerEvents = 'none';
+    el.style.animation = `rise ${4 + Math.random()*6}s linear forwards`;
+    heartsLayer.appendChild(el);
+    setTimeout(()=> el.remove(), 10000);
   }, 420);
 }
 
-/* ---------- create interactive flowers ---------- */
-function createFlowers(){
-  if(flowersCreated) return;
-  flowersCreated = true;
-  FLOWER_POSITIONS.forEach((pos, idx) => {
-    const btn = document.createElement('div');
-    btn.className = 'flower-btn';
+/* keyframes injection for rise (not in CSS because inline created elements) */
+const kf = `@keyframes rise{0%{transform:translateY(0);opacity:1}100%{transform:translateY(-110vh);opacity:0}}`;
+const style = document.createElement('style'); style.innerHTML = kf; document.head.appendChild(style);
+
+/* ---------- create interactive items (flowers / makeup icons) ---------- */
+function createItems(){
+  if(itemsCreated) return;
+  itemsCreated = true;
+  ITEM_POS.forEach((pos, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'item-btn';
     btn.style.left = pos.left;
     btn.style.top = pos.top;
-    btn.setAttribute('data-msg', FLOWER_MESSAGES[idx % FLOWER_MESSAGES.length]);
-    btn.setAttribute('role','button');
-    btn.setAttribute('aria-label','Flor con mensaje');
-    // inline svg flower (no external resources)
-    btn.innerHTML = `
-      <svg viewBox="0 0 64 64" width="56" height="56" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="32" cy="32" r="6" fill="#FFD166"></circle>
-        <g fill="#FF7AA2">
-          <ellipse cx="32" cy="8" rx="8" ry="14"></ellipse>
-          <ellipse cx="32" cy="56" rx="8" ry="14"></ellipse>
-          <ellipse cx="10" cy="32" rx="12" ry="8"></ellipse>
-          <ellipse cx="54" cy="32" rx="12" ry="8"></ellipse>
-          <ellipse cx="18" cy="18" rx="9" ry="6" transform="rotate(-35 18 18)"></ellipse>
-          <ellipse cx="46" cy="46" rx="9" ry="6" transform="rotate(-35 46 46)"></ellipse>
-        </g>
-      </svg>`;
-    flowersLayer.appendChild(btn);
+    btn.setAttribute('aria-label','Elemento con mensaje');
+    btn.setAttribute('data-msg', ITEM_MESSAGES[idx % ITEM_MESSAGES.length]);
+    // inline SVG variations (flower, brush, lipstick)
+    const svgns = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(svgns, 'svg');
+    svg.setAttribute('viewBox','0 0 64 64');
+    svg.setAttribute('width','56'); svg.setAttribute('height','56');
+    // mix shapes: alternate flower and makeup shapes
+    if(idx % 3 === 0){
+      svg.innerHTML = `<circle cx="32" cy="32" r="6" fill="#FFD166"/><g fill="#FF7AA2"><ellipse cx="32" cy="8" rx="8" ry="14"></ellipse><ellipse cx="32" cy="56" rx="8" ry="14"></ellipse><ellipse cx="10" cy="32" rx="12" ry="8"></ellipse><ellipse cx="54" cy="32" rx="12" ry="8"></ellipse></g>`;
+    } else if(idx % 3 === 1){
+      // lipstick icon stylized
+      svg.innerHTML = `<g transform="translate(6,8)"><rect x="20" y="28" width="10" height="18" rx="3" fill="#6b2b42"></rect><path d="M20 28 C18 20, 30 14, 34 18 C38 22, 28 28, 20 28 Z" fill="#ff6fa5"></path></g>`;
+    } else {
+      // brush-like
+      svg.innerHTML = `<g transform="translate(6,6)"><rect x="4" y="28" width="36" height="8" rx="4" fill="#8c4a5b"></rect><ellipse cx="6" cy="34" rx="6" ry="10" fill="#ffb6d6" transform="rotate(-20 6 34)"/></g>`;
+    }
+    btn.appendChild(svg);
+    itemsLayer.appendChild(btn);
 
-    // animate entrance: float up with random delay
-    btn.animate([{transform:'translateY(160px) scale(.9)', opacity:0},{transform:'translateY(0px) scale(1)', opacity:1}], {duration:900 + Math.random()*600, easing:'cubic-bezier(.2,.9,.2,1)', delay: 120*idx});
+    // entrance animation
+    btn.animate([{transform:'translateY(160px) scale(.9)', opacity:0},{transform:'translateY(0) scale(1)', opacity:1}], {duration:900 + Math.random()*700, easing:'cubic-bezier(.2,.9,.2,1)', delay: 120*idx});
+
     // click handler
     btn.addEventListener('click', (e)=>{
       e.stopPropagation();
-      const msg = btn.getAttribute('data-msg');
+      const msg = btn.getAttribute('data-msg') || 'Te quiero';
       showBubble(msg, btn);
-      // tiny pop
-      btn.animate([{transform:'scale(.94)'},{transform:'scale(1.06)'},{transform:'scale(1)'}], {duration:420, easing:'cubic-bezier(.2,.9,.2,1)'});
+      // small pop effect
+      btn.animate([{transform:'scale(.96)'},{transform:'scale(1.06)'},{transform:'scale(1)'}], {duration:420, easing:'cubic-bezier(.2,.9,.2,1)'});
     });
   });
 }
 
-/* ---------- bubble near clicked flower ---------- */
-function showBubble(text, btnEl){
+/* ---------- bubble position near element ---------- */
+function showBubble(text, el){
   bubble.textContent = text;
   bubble.style.display = 'block';
-  // position bubble near element
-  const rect = btnEl.getBoundingClientRect();
-  const bw = bubble.offsetWidth || 160;
+  bubble.style.opacity = '1';
+  bubble.style.transform = 'scale(.98)';
+  // compute position
+  const rect = el.getBoundingClientRect();
+  const bw = bubble.offsetWidth || 180;
   let left = rect.left + rect.width/2 - bw/2;
   if(left < 8) left = 8;
   if(left + bw > window.innerWidth - 8) left = window.innerWidth - bw - 8;
   bubble.style.left = left + 'px';
-  bubble.style.top = (rect.top - 54) + 'px';
-  bubble.style.opacity = '1';
-  bubble.style.transform = 'scale(.98)';
+  bubble.style.top = (rect.top - 62) + 'px';
   setTimeout(()=> bubble.style.transform = 'scale(1)', 10);
-  // hide after some seconds
   clearTimeout(bubble.hideTimeout);
-  bubble.hideTimeout = setTimeout(()=> bubble.style.display = 'none', 3200);
+  bubble.hideTimeout = setTimeout(()=> bubble.style.display = 'none', 3600);
 }
 
-/* ---------- play audio fallback ---------- */
-playAudioBtn.addEventListener('click', ()=>{
-  audio.play().then(()=> {
-    playAudioBtn.style.display = 'none';
-  }).catch(()=> {
-    // nothing - keep button visible
+/* ---------- open box automatically ---------- */
+function openBox(){
+  box.classList.add('open');
+  // show paper after small delay
+  setTimeout(()=> {
+    paper.style.opacity = '1';
+    typeText(POEM, paperTxt, 14);
+    signature.classList.remove('show');
+  }, 600);
+
+  // hearts + items + music
+  startHearts();
+  createItems();
+  // try play audio, fallback show button
+  audio.volume = 0.36;
+  audio.play().catch(()=> {
+    playAudioBtn.style.display = 'block';
   });
+}
+
+/* ---------- play button fallback ---------- */
+playAudioBtn.addEventListener('click', ()=>{
+  audio.play().then(()=> playAudioBtn.style.display='none').catch(()=>{});
 });
 
-/* ---------- auto open on load (instant) ---------- */
-document.addEventListener('DOMContentLoaded', ()=>{
-  // small delay so user sees layout, then open instantly
-  setTimeout(()=> openBox(), 450);
-});
-
-/* ---------- accessibility: allow keyboard open ---------- */
-const boxWrap = document.getElementById('boxWrap');
-boxWrap.tabIndex = 0;
-boxWrap.addEventListener('keydown', (e) => {
-  if(e.key === 'Enter' || e.key === ' ') {
+/* ---------- keyboard accessibility to toggle ---------- */
+boxWrap.addEventListener('keydown', (e)=>{
+  if(e.key === 'Enter' || e.key === ' '){
     if(!box.classList.contains('open')) openBox();
   }
 });
 
-/* ---------- signature show once poem typed (already handled in typePoem) ---------- */
+/* ---------- auto open on load (instant) ---------- */
+document.addEventListener('DOMContentLoaded', ()=>{
+  // open right away (small delay so UI paints)
+  setTimeout(()=> openBox(), 360);
+});
 </script>
 </body>
 </html>

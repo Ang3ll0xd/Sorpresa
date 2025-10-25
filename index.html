@@ -1,234 +1,163 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Sorpresa — maquilla & amor</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Fátima 💖</title>
 <style>
-  :root{
-    --bg-a:#fff0f6;
-    --accent:#ff5c8d;
-    --muted:#7a4a5a;
-    --paper:#fff8fb;
-    --gold: #ffd27a;
-  }
-  html,body{height:100%;margin:0;font-family:Inter,"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,Arial;-webkit-font-smoothing:antialiased;}
-  body{
-    background: radial-gradient(1000px 500px at 10% 10%, #fff6fb 0%, #ffeef7 15%, #fdeff4 35%, #fff 100%);
-    display:flex;align-items:center;justify-content:center;min-height:100vh;overflow:hidden;color:var(--muted);
-  }
-
-  .stage{width:100%;max-width:1120px;padding:20px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:14px;}
-  h1{margin:0;color:var(--accent);font-size:20px}
-  p.lead{margin:0;color:#6d3d4a;opacity:.9}
-
-  .center{width:100%;display:flex;align-items:center;justify-content:center;position:relative;padding:18px 0;box-sizing:border-box;}
-
-  .box-wrap{width:360px;height:260px;perspective:1400px;position:relative;display:flex;align-items:center;justify-content:center}
-  .box{width:280px;height:200px;position:relative;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.2,.9,.2,1);}
-  .box.open{transform:translateY(-8px) rotateX(-6deg) rotateY(6deg) scale(1.02);}
-
-  .lid{
-    position:absolute;left:0;right:0;margin:auto;top:-12px;width:280px;height:92px;border-radius:14px;
-    background:linear-gradient(180deg,#ff9ec7,#ff6fa5);
-    box-shadow:0 18px 44px rgba(160,30,70,0.14);
-    transform-origin:center bottom;transition:transform .9s cubic-bezier(.2,.9,.2,1);
-    z-index:30;display:flex;align-items:flex-end;justify-content:center;padding-bottom:14px;color:white;font-weight:700;text-shadow:0 2px 8px rgba(0,0,0,0.06);
-  }
-  .box.open .lid{transform:rotateX(-150deg) translateY(-12%);}
-
-  .body{
-    position:absolute;left:0;right:0;bottom:0;margin:auto;width:280px;height:140px;border-radius:12px;
-    background:linear-gradient(180deg,#ffd6e8,#ffb6d6);
-    box-shadow:0 20px 48px rgba(140,30,60,0.12);
-    z-index:10;display:flex;align-items:center;justify-content:center;overflow:hidden;
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ffb6c1, #ffc0cb, #ffe4e1);
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
   }
 
-  /* carta */
-  .paper{
-    position:absolute;left:50%;top:32%;transform:translateX(-50%) translateY(28px) scale(.98);
-    width:78%;min-height:120px;background:linear-gradient(180deg,var(--paper),#fff1f6);
-    border-radius:10px;padding:18px;box-shadow:0 18px 40px rgba(80,20,50,0.12);opacity:0;
-    transition:all .9s cubic-bezier(.2,.9,.2,1);z-index:60;pointer-events:auto;
+  h1 {
+    color: #ff69b4;
+    text-shadow: 1px 1px 3px #fff;
+    font-size: 2em;
+    animation: fadeIn 2s ease-in-out;
   }
-  .box.open + .paper{opacity:1;transform:translateX(-50%) translateY(-28px) scale(1);}
-  .paper h2{margin:0;font-family:"Dancing Script",cursive;font-size:28px;color:var(--accent);text-align:center}
-  .paper .body-txt{margin-top:10px;color:var(--muted);line-height:1.6;font-size:15px;white-space:pre-wrap;max-height:320px;overflow:auto}
 
-  .items-layer{position:absolute;inset:0;z-index:40;pointer-events:none} /* más abajo que la carta */
-  .item-btn{position:absolute;width:56px;height:56px;pointer-events:auto;cursor:pointer;transition:transform .18s ease;outline:none}
-  .item-btn:active{transform:scale(.94)}
+  .box {
+    width: 180px;
+    height: 180px;
+    background: #ff82ab;
+    position: relative;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(255, 20, 147, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 1s ease;
+  }
 
-  .bubble{position:fixed;background:rgba(255,255,255,0.98);padding:10px 12px;border-radius:12px;box-shadow:0 12px 30px rgba(120,20,60,0.12);color:#5b2636;font-weight:700;z-index:120;display:none;max-width:260px;text-align:center}
+  .box.open {
+    transform: scale(1.2);
+  }
 
-  .hearts{position:fixed;inset:0;pointer-events:none;z-index:6;overflow:hidden}
+  .lid {
+    width: 200px;
+    height: 40px;
+    background: #ff69b4;
+    position: absolute;
+    top: -40px;
+    border-radius: 10px;
+    transition: transform 1s ease;
+    transform-origin: bottom center;
+  }
 
-  #playAudioBtn{position:fixed;bottom:18px;right:18px;background:linear-gradient(90deg,#ff6fa5,#ff9ec7);color:white;border:none;padding:12px 14px;border-radius:12px;box-shadow:0 8px 30px rgba(200,40,100,0.18);font-weight:700;display:none;z-index:220;cursor:pointer}
+  .box.open .lid {
+    transform: rotateX(150deg);
+  }
 
-  .signature{margin-top:10px;font-weight:700;color:#542435;opacity:0;transform:translateY(6px);transition:all .8s ease}
-  .signature.show{opacity:1;transform:translateY(0)}
+  .message {
+    display: none;
+    text-align: center;
+    color: #d63384;
+    font-size: 1.2em;
+    line-height: 1.5em;
+    margin-top: 20px;
+    animation: fadeIn 3s ease-in;
+    width: 80%;
+  }
 
-  @media (max-width:520px){
-    .box-wrap{width:86%;}
-    .box{width:84%;}
-    .lid,.body{width:84%;}
-    .paper{width:90%;}
+  .box.open + .message {
+    display: block;
+  }
+
+  .flower {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-image: url('https://i.imgur.com/XzQzJ6B.png');
+    background-size: cover;
+    animation: float 10s infinite;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    50% { transform: translateY(-30px) rotate(15deg); opacity: 0.8; }
+    100% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .heart {
+    position: fixed;
+    top: -10px;
+    color: #ff1493;
+    font-size: 24px;
+    animation: fall 6s linear infinite;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+  }
+
+  audio {
+    display: none;
   }
 </style>
 </head>
 <body>
-  <div class="stage">
-    <h1>Un detalle especial</h1>
-    <p class="lead">Abre la caja y descubre un toque inspirado en maquillaje.</p>
 
-    <div class="center">
-      <div class="box-wrap" id="boxWrap">
-        <div class="box" id="box">
-          <div class="lid">¡Sorpresa!</div>
-          <div class="body"></div>
-        </div>
+<h1>💖 Una pequeña sorpresa para ti, Fátima 💖</h1>
+<div class="box" onclick="openBox()">
+  <div class="lid"></div>
+</div>
 
-        <div class="paper" id="paper">
-          <h2>Para ti</h2>
-          <div class="body-txt" id="paperTxt"></div>
-          <div class="signature" id="signature">— Con cariño, Angello</div>
-        </div>
+<div class="message" id="message">
+  <p>
+    Mi querida Fátima,<br><br>
+    Eres como un amanecer suave que ilumina mis días con dulzura y calma.  
+    Aunque la distancia nos separe, mi cariño viaja contigo en cada pensamiento,  
+    en cada sonrisa que imagino y en cada palabra que quisiera decirte.  
+    Gracias por ser tú, tan especial, tan única, tan tú. 💞<br><br>
+    — Con mucho cariño, Angello 💫
+  </p>
+</div>
 
-        <div class="items-layer" id="itemsLayer"></div>
-      </div>
-    </div>
-
-    <div class="hearts" id="hearts"></div>
-  </div>
-
-  <div class="bubble" id="bubble"></div>
-  <button id="playAudioBtn">Tocar música ♫</button>
-
-  <audio id="bgAudio" preload="auto">
-    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7e69a4fa17.mp3?filename=romantic-piano-ambient-110955.mp3" type="audio/mpeg">
-  </audio>
+<audio autoplay loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_0c5cf3f043.mp3?filename=romantic-piano-141101.mp3" type="audio/mp3">
+</audio>
 
 <script>
-const POEM = `He guardado pequeñas luces en esta caja,
-pequeños trazos de luna y polvos de brillo.
-Que tu sonrisa, cuando la leas, sea paisaje cálido;
-que mi voz llegue suave en cada renglón.
-
-Si alguna vez la noche se siente fría,
-recuerda que hay un latido que te nombra.
-Que esta carta te encuentre en horas serenas,
-y que el cariño que guardo te abrace en lo simple.`;
-
-const ITEM_MESSAGES = [
-  "Tu brillo es incomparable ✨",
-  "Eres más bella que cualquier paleta 🎨",
-  "Tu sonrisa ilumina el día ☀️",
-  "Me pierdo en tu mirada cada vez 💫",
-  "Eres auténtica y preciosa 🌸",
-  "Tu sonrisa es mi mejor elección 💖"
-];
-
-const ITEM_POS = [
-  {left:'5%', top:'10%'}, {left:'80%', top:'15%'},
-  {left:'8%', top:'75%'}, {left:'70%', top:'78%'},
-  {left:'15%', top:'5%'}, {left:'85%', top:'60%'}
-];
-
-const box=document.getElementById('box');
-const paper=document.getElementById('paper');
-const paperTxt=document.getElementById('paperTxt');
-const signature=document.getElementById('signature');
-const itemsLayer=document.getElementById('itemsLayer');
-const bubble=document.getElementById('bubble');
-const hearts=document.getElementById('hearts');
-const playAudioBtn=document.getElementById('playAudioBtn');
-const audio=document.getElementById('bgAudio');
-let itemsCreated=false;
-
-function typeText(text,target,speed=14){
-  target.textContent='';
-  let i=0;
-  function step(){
-    if(i<text.length){
-      target.textContent+=text.charAt(i);
-      i++;
-      let delay=speed+Math.random()*18;
-      if(text.charAt(i-1)==='.'||text.charAt(i-1)==='\n')delay+=120;
-      setTimeout(step,delay);
-    }else signature.classList.add('show');
+  function openBox() {
+    const box = document.querySelector('.box');
+    box.classList.toggle('open');
+    if (box.classList.contains('open')) {
+      for (let i = 0; i < 20; i++) {
+        let heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+        heart.innerHTML = '💖';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 10000);
+      }
+    }
   }
-  step();
-}
 
-let heartsInterval=null;
-function startHearts(){
-  if(heartsInterval)return;
-  heartsInterval=setInterval(()=>{
-    const el=document.createElement('div');
-    el.textContent=['💖','💕','❤'][Math.floor(Math.random()*3)];
-    el.style.position='fixed';
-    el.style.left=(8+Math.random()*84)+'vw';
-    el.style.bottom='-10vh';
-    el.style.fontSize=(12+Math.random()*28)+'px';
-    el.style.zIndex=6;
-    el.style.pointerEvents='none';
-    el.style.animation=`rise ${4+Math.random()*6}s linear forwards`;
-    hearts.appendChild(el);
-    setTimeout(()=>el.remove(),10000);
-  },420);
-}
-const style=document.createElement('style');style.innerHTML=`@keyframes rise{0%{transform:translateY(0);opacity:1}100%{transform:translateY(-110vh);opacity:0}}`;document.head.appendChild(style);
-
-function createItems(){
-  if(itemsCreated)return;
-  itemsCreated=true;
-  ITEM_POS.forEach((pos,idx)=>{
-    const btn=document.createElement('button');
-    btn.className='item-btn';
-    btn.style.left=pos.left;
-    btn.style.top=pos.top;
-    btn.setAttribute('data-msg',ITEM_MESSAGES[idx%ITEM_MESSAGES.length]);
-    const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
-    svg.setAttribute('viewBox','0 0 64 64');svg.setAttribute('width','56');svg.setAttribute('height','56');
-    if(idx%3===0){svg.innerHTML=`<circle cx="32" cy="32" r="6" fill="#FFD166"/><g fill="#FF7AA2"><ellipse cx="32" cy="8" rx="8" ry="14"></ellipse><ellipse cx="32" cy="56" rx="8" ry="14"></ellipse><ellipse cx="10" cy="32" rx="12" ry="8"></ellipse><ellipse cx="54" cy="32" rx="12" ry="8"></ellipse></g>`;}
-    else if(idx%3===1){svg.innerHTML=`<g transform="translate(6,8)"><rect x="20" y="28" width="10" height="18" rx="3" fill="#6b2b42"></rect><path d="M20 28 C18 20, 30 14, 34 18 C38 22, 28 28, 20 28 Z" fill="#ff6fa5"></path></g>`;}
-    else{svg.innerHTML=`<g transform="translate(6,6)"><rect x="4" y="28" width="36" height="8" rx="4" fill="#8c4a5b"></rect><ellipse cx="6" cy="34" rx="6" ry="10" fill="#ffb6d6" transform="rotate(-20 6 34)"/></g>`;}
-    btn.appendChild(svg);
-    itemsLayer.appendChild(btn);
-    btn.animate([{transform:'translateY(160px) scale(.9)',opacity:0},{transform:'translateY(0) scale(1)',opacity:1}],{duration:900+Math.random()*700,easing:'cubic-bezier(.2,.9,.2,1)',delay:120*idx});
-    btn.addEventListener('click',e=>{
-      e.stopPropagation();
-      showBubble(btn.getAttribute('data-msg'),btn);
-      btn.animate([{transform:'scale(.96)'},{transform:'scale(1.06)'},{transform:'scale(1)'}],{duration:420});
-    });
-  });
-}
-
-function showBubble(text,el){
-  bubble.textContent=text;
-  bubble.style.display='block';
-  const rect=el.getBoundingClientRect();
-  const bw=bubble.offsetWidth||180;
-  let left=rect.left+rect.width/2-bw/2;
-  if(left<8)left=8;
-  if(left+bw>window.innerWidth-8)left=window.innerWidth-bw-8;
-  bubble.style.left=left+'px';
-  bubble.style.top=(rect.top-62)+'px';
-  clearTimeout(bubble.hideTimeout);
-  bubble.hideTimeout=setTimeout(()=>bubble.style.display='none',3600);
-}
-
-function openBox(){
-  box.classList.add('open');
-  setTimeout(()=>{paper.style.opacity='1';typeText(POEM,paperTxt,14);signature.classList.remove('show');},600);
-  startHearts();createItems();
-  audio.volume=0.36;
-  audio.play().catch(()=>playAudioBtn.style.display='block');
-}
-
-playAudioBtn.addEventListener('click',()=>{audio.play().then(()=>playAudioBtn.style.display='none');});
-
-document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>openBox(),360));
+  // Flores animadas
+  for (let i = 0; i < 6; i++) {
+    let flower = document.createElement('div');
+    flower.classList.add('flower');
+    flower.style.left = Math.random() * 100 + 'vw';
+    flower.style.top = Math.random() * 100 + 'vh';
+    document.body.appendChild(flower);
+  }
 </script>
+
 </body>
 </html>
